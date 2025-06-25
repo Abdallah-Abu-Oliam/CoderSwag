@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.coderswag.R
 import com.example.coderswag.model.Category
-/**
+
 class CategoryAdapter(
 
     val context: Context, val categories: List<Category>
@@ -60,4 +60,4 @@ return categoryView
         var categoryImage : ImageView? =null
         var categoryName : TextView? = null
     }
-}**/
+}
