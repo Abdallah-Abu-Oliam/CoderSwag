@@ -1,5 +1,6 @@
 package com.example.coderswag.controller
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.ArrayAdapter
@@ -16,6 +17,7 @@ import com.example.coderswag.adapters.CategoryRecycleAdapter
 import com.example.coderswag.databinding.ActivityMainBinding
 import com.example.coderswag.model.Category
 import com.example.coderswag.services.DataService
+import com.example.coderswag.utilites.EXTRA_CATEGORY
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        adapter = CategoryRecycleAdapter(this , DataService.categories)
+        adapter = CategoryRecycleAdapter(this,DataService.categories){ category ->
+            val productIntent = Intent(this , ProductsActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY,category.title)
+            startActivity(productIntent)
+        }
         binding.categorieListView.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)

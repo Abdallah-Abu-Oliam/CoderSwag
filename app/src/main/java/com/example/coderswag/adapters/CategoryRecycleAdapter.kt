@@ -9,13 +9,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.coderswag.R
 import com.example.coderswag.model.Category
+/**lambda in kotlin is a first class citizen which means that function behaves as a type
+ * so this can be pass as an argument to another function can be returned as fun saved itno variable or
+ * propety**/
 
 class CategoryRecycleAdapter(
     val context: Context ,
-    val categories : List<Category>
-    ) : RecyclerView.Adapter <CategoryRecycleAdapter.Holder>() {
+    val categories : List<Category>,
+    val itemClick: (Category) -> Unit
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.Adapter <CategoryRecycleAdapter.Holder>() {
+
+    inner class Holder(itemView: View , val itemClick: (Category) -> Unit) : RecyclerView.ViewHolder(itemView) {
         /**the class that is responsible for binding */
         val categoryImage = itemView.findViewById<ImageView>(R.id.categorieImage)
         val categoryName = itemView.findViewById<TextView>(R.id.categorieTextView)
@@ -25,6 +30,7 @@ class CategoryRecycleAdapter(
                 .getIdentifier(category.image, "drawable", context.packageName)
             categoryName?.text = category.title
             categoryImage?.setImageResource(resourceId)
+            itemView.setOnClickListener{(itemClick(category))}
         }
 
 
@@ -35,7 +41,7 @@ class CategoryRecycleAdapter(
         /**this is the methode that is called when new view holders needed FOR THE FIRST TIME */
         val view = LayoutInflater.from(context)
             .inflate(R.layout.category_list_item,parent , false)
-        return Holder(view)
+        return Holder(view,itemClick)
 
     }
 
@@ -46,5 +52,6 @@ class CategoryRecycleAdapter(
          * location
          * binding : is the process of preparing a child vie to display data according to a position within the adapter**/
         holder.bindCategory(categories[p1],context)
+
     }
 }

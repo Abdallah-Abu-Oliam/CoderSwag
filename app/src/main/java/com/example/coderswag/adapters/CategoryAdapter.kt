@@ -12,7 +12,7 @@ import com.example.coderswag.model.Category
 
 class CategoryAdapter(
 
-    val context: Context, val categories: List<Category>
+    val context: Context, val categories: List<Category> ,
 ) : BaseAdapter() {
 
     override fun getCount(): Int {
